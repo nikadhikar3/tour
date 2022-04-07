@@ -9,14 +9,22 @@ $errors = array();
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'tour_db');
 
+//index page setup up
+if (isset($_POST['login_page'])) {
 
+  header('location: login.php');
+}
+if (isset($_POST['signup_page'])) {
+
+  header('location: login.php');
+}
 // LOGIN USER
 if (isset($_POST['login_user'])) {
-  $username = mysqli_real_escape_string($db, $_POST['username']);
+  $email = mysqli_real_escape_string($db, $_POST['username']);
   $password = mysqli_real_escape_string($db, $_POST['password']);
 
-  if (empty($username)) {
-  	array_push($errors, "Username is required");
+  if (empty($email)) {
+  	array_push($errors, "Email is required");
   }
   if (empty($password)) {
   	array_push($errors, "Password is required");
@@ -24,10 +32,10 @@ if (isset($_POST['login_user'])) {
 
   if (count($errors) == 0) {
   	$password = md5($password);
-  	$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+  	$query = "SELECT * FROM signup WHERE email='$email' AND password='$password'";
   	$results = mysqli_query($db, $query);
   	if (mysqli_num_rows($results) == 1) {
-  	  $_SESSION['username'] = $username;
+  	  $_SESSION['email'] = $email;
   	  $_SESSION['success'] = "You are now logged in";
   	  header('location: home.php');
   	}else {
@@ -55,7 +63,8 @@ if (isset($_POST['reg_user'])) {
 
   // first check the database to make sure 
   // a user does not already exist with the same username and/or email
-  $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
+  $user_check_query = "SELECT * FROM signup WHERE username='$username' OR email='$email' LIMIT 1";
+
   $result = mysqli_query($db, $user_check_query);
   $user = mysqli_fetch_assoc($result);
   
@@ -78,7 +87,7 @@ if (isset($_POST['reg_user'])) {
       mysqli_query($db, $query);
       $_SESSION['username'] = $username;
       $_SESSION['success'] = "You are now logged in";
-      header('location: home.php');
+      header('location: index.php');
   }
 }
 
