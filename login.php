@@ -14,7 +14,7 @@
 		<input type="checkbox" id="chk" aria-hidden="true">
 			<div class="login">
 				
-				<form method="post" action="db_conn.php">
+				<form method="post" action="login.php">
 					<?php include('error.php');?>
 					
 					<label>Login</label>
@@ -27,7 +27,7 @@
 			</div>
 
 			<div class="signup">
-				<form method="post" action="db_conn.php">
+				<form method="post" action="login.php">
 					<label for="chk" aria-hidden="true">Sign up</label>
 					<input type="text" name="txt" placeholder="Name" required="">
 					<input type="email" name="email" placeholder="Email" required="">

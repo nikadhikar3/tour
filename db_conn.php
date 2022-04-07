@@ -31,7 +31,7 @@ if (isset($_POST['login_user'])) {
   }
 
   if (count($errors) == 0) {
-  	$password = md5($password);
+  	// $password = md5($password);
   	$query = "SELECT * FROM signup WHERE email='$email' AND password='$password'";
   	$results = mysqli_query($db, $query);
   	if (mysqli_num_rows($results) == 1) {
@@ -80,14 +80,14 @@ if (isset($_POST['reg_user'])) {
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
-      $password = md5($password_1);//encrypt the password before saving in the database
+      // $password = md5($password_1);//encrypt the password before saving in the database
 
       $query = "INSERT INTO signup (username, email, phonenumber,address,password) 
                 VALUES('$username', '$email', '$phonenumber', '$address', '$password')";
       mysqli_query($db, $query);
       $_SESSION['username'] = $username;
       $_SESSION['success'] = "You are now logged in";
-      header('location: index.php');
+      header('location: login.php');
   }
 }
 
